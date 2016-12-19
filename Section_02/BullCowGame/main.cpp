@@ -35,7 +35,6 @@ int32 main()
 //introduce the game
 void PrintIntro()
 {
-	
 	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << BCGame.GetMyHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
