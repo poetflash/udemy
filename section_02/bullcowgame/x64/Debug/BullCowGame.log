@@ -1,0 +1,7 @@
+﻿  main.cpp
+  FBullCowGame.cpp
+e:\github\udemy\section_02\bullcowgame\fbullcowgame.cpp(7): warning C4267: 'return': conversion from 'size_t' to 'int32', possible loss of data
+e:\github\udemy\section_02\bullcowgame\fbullcowgame.cpp(49): warning C4267: 'initializing': conversion from 'size_t' to 'int32', possible loss of data
+  Generating Code...
+  BullCowGame.vcxproj -> E:\GitHub\udemy\Section_02\x64\Debug\BullCowGame.exe
+  BullCowGame.vcxproj -> E:\GitHub\udemy\Section_02\x64\Debug\BullCowGame.pdb (Full PDB)
