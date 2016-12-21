@@ -14,7 +14,7 @@ void FBullCowGame::Reset()
 	constexpr int32 MAX_TRIES = 8;
 	MyMaxTries = MAX_TRIES;
 	
-	const FString HIDDEN_WORD = "ant";
+	const FString HIDDEN_WORD = "planet";
 	MyHiddenWord = HIDDEN_WORD;
 
 	MyCurrentTry = 1;
@@ -27,7 +27,7 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	{
 		return EGuessStatus::Not_Isogram;//TODO write function 
 	}
-	else if (!IsIsogram(Guess))// if the guess isn't all lowercase
+	else if (!IsLowercase(Guess))// if the guess isn't all lowercase
 	{
 		return EGuessStatus::Not_Lowercase;//TODO write function 
 	}
@@ -95,4 +95,16 @@ bool FBullCowGame::IsIsogram(FString Word) const
 	}
 	
 	return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const
+{
+	for (auto Letter : Word)
+	{
+		if (!islower(Letter))//if NOT lowercase letter
+		{
+			return false;
+		}
+	}
+	return false;
 }
