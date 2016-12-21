@@ -1,6 +1,6 @@
 #include "FBullCowGame.h"
 #include <map>
-#define Tmap std::map;
+#define TMap std::map
 
 FBullCowGame::FBullCowGame(){ Reset();}
 
@@ -23,11 +23,11 @@ void FBullCowGame::Reset()
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	if (IsIsogram(Guess))// if the guess isn't an isogram
+	if (!IsIsogram(Guess))// if the guess isn't an isogram
 	{
 		return EGuessStatus::Not_Isogram;//TODO write function 
 	}
-	else if (false)// if the guess isn't all lowercase
+	else if (!IsIsogram(Guess))// if the guess isn't all lowercase
 	{
 		return EGuessStatus::Not_Lowercase;//TODO write function 
 	}
@@ -79,11 +79,21 @@ bool FBullCowGame::IsIsogram(FString Word) const
 {
 	// treat 0 or 1 letter words as isogram
 
-	//setup our map
-	//loop through all the letters of the word
-		//if the letter is in the map
-			//we do NOT have an isogram
-		//otherwise
-			//add the letter to the map as seen
+	if (Word.length() <= 1) { return true; }
+	
+	TMap<char, bool> LetteSeen;//setup our map
+	for (auto Letter : Word)//for all letters of the word
+	{
+		Letter = tolower(Letter);//handle mixed case
+		if (LetteSeen[Letter])//if the letter is in the map
+		{
+			return false;//we do NOT have an isogram
+		}
+		else
+		{
+			LetteSeen[Letter] = true;//add the letter to the map as seen
+		}
+	}
+	
 	return true;
 }
