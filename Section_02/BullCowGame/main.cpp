@@ -2,21 +2,24 @@
 This acts as the view in a MVC pattern, and is for all
 user interaction. For game logic see the FBullCowGame
 */
+#pragma once
 
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+//to make syntax Unreal friendly
 using FText = std::string;
 using int32 = int;
 
+//functions prototypes as outside a class
 void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
-FBullCowGame BCGame;//instantiate
+FBullCowGame BCGame;//instantiate a new game, which we re-use across plays
 
 //the entry poin for the application
 int32 main()
@@ -29,19 +32,26 @@ int32 main()
 	} while (bPlayAgain);
 	
 	
-	return 0;//exit
+	return 0;//exit the application
 }
 
-//introduce the game
 void PrintIntro()
 {
-	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << std::endl;
+	std::cout << "          }   {         ___ " << std::endl;
+	std::cout << "          (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\ /          \\ /-------\\ " << std::endl;
+	std::cout << "  / | BULL |O            O| COW  | \\ " << std::endl;
+	std::cout << " *  |-,--- |              |------|  * " << std::endl;
+	std::cout << "    ^      ^              ^      ^ " << std::endl;
 	std::cout << "Can you guess the " << BCGame.GetMyHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
 	return;
 }
 
+//plays a single game to complition
 void PlayGame()
 {
 	BCGame.Reset();
@@ -49,10 +59,10 @@ void PlayGame()
 
 	//loop asking for gueses while the game is NOT won
 	//and thre are still tries remaining
-	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() < MaxTries)
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)
 	{
-		FText guess = GetValidGuess();//TODO make loop checking valid
-									  // submit valid guess to the game
+		FText guess = GetValidGuess();
+
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(guess);
 
 		// print number of bylls and cows
@@ -77,11 +87,10 @@ FText GetValidGuess()
 		int32 CurrentTry = BCGame.GetCurrentTry();
 		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries();
 		std::cout << ". Enter your guess: ";
-		
-		getline(std::cin, Guess);
+		std::getline(std::cin, Guess);
 
+		// check status and give feedback
 		Status = BCGame.CheckGuessValidity(Guess);
-
 		switch (Status)
 		{
 		case EGuessStatus::Wrong_Length:
@@ -106,7 +115,7 @@ bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again with the same hidden word(y/n)? ";
 	FText Responce = "";
-	getline(std::cin, Responce);
+	std::getline(std::cin, Responce);
 	
 	return (Responce[0] == 'y') || (Responce[0] == 'Y');
 }
